@@ -13,6 +13,7 @@
 
 #define DISPLAY_HEIGHT 100 // Height of the display area for the waveform
 #define DISPLAY_WIDTH  320 // Width of the display area
+#define LINE_WIDTH 2 // Adjust line width as needed
 
 void initRMT() {
     rmt_config_t rxconfig;
@@ -55,7 +56,7 @@ void loop() {
                 M5.Lcd.drawRect(0, 20, DISPLAY_WIDTH, DISPLAY_HEIGHT, TFT_WHITE);
                 // Draw waveform based on signal strength
                 for (size_t i = 0; i < rx_size; i++) {
-                    int lineHeight = map(item[i].duration0 + item[i].duration1, 0, SIGNAL_STRENGTH_THRESHOLD, 0, DISPLAY_HEIGHT);
+                    int lineHeight = map(item[i].duration0 + item[i].duration1, 0, SIGNAL_STRENGTH_THRESHOLD, 0, DISPLAY_HEIGHT/2);
                     int lineX = map(i, 0, rx_size - 1, 0, DISPLAY_WIDTH - 1); // Map i to within the display width
                     // Ensure drawing coordinates stay within the box bounds
                     int startY = constrain(20 + DISPLAY_HEIGHT / 2 - lineHeight / 2, 20, 20 + DISPLAY_HEIGHT);
